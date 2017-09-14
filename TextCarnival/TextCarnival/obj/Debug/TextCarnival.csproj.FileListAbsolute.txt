@@ -4,3 +4,9 @@ C:\Users\antho\OneDrive\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\
 C:\Users\antho\OneDrive\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\bin\Debug\TextCarnival.pdb
 C:\Users\antho\OneDrive\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\obj\Debug\TextCarnival.exe
 C:\Users\antho\OneDrive\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\obj\Debug\TextCarnival.pdb
+C:\Users\eahscs\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\bin\Debug\TextCarnival.exe.config
+C:\Users\eahscs\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\bin\Debug\TextCarnival.exe
+C:\Users\eahscs\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\bin\Debug\TextCarnival.pdb
+C:\Users\eahscs\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\obj\Debug\TextCarnival.csprojResolveAssemblyReference.cache
+C:\Users\eahscs\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\obj\Debug\TextCarnival.exe
+C:\Users\eahscs\Documents\GitHub\TextCarnival\TextCarnival\TextCarnival\obj\Debug\TextCarnival.pdb

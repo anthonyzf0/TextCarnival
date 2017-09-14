@@ -39,7 +39,7 @@ namespace TextCarnival.Source.Client
             Byte[] data = System.Text.Encoding.ASCII.GetBytes(s);
             stream.Write(data, 0, data.Length);
         }
-
+        
         //Runs the client itself
         public void start()
         {
@@ -66,15 +66,27 @@ namespace TextCarnival.Source.Client
                         //Server wants to display some text
                         case "show":
 
-                            Console.WriteLine(s.Substring(4));
+                            String[] values = s.Substring(4).Split('|');
+                            for(int i=0;i<values.Length;i++)
+                            {
+                                if (i!=0 && values[i].Length > 3)
+                                {
+                                    Console.BackgroundColor = (ConsoleColor)Convert.ToInt32(values[i][1]+"", 16);
+                                    Console.ForegroundColor = (ConsoleColor)Convert.ToInt32(values[i][2]+"", 16);
+                                    Console.Write(values[i].Substring(3));
+                                }
+                                else
+                                    Console.Write(values[i]);
+
+                            }
+
+                            Console.WriteLine();
 
                             break;
 
                         //Server wants to display some text
                         case "colr":
-
-                            Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), s.Substring(4));
-
+                            
                             break;
                         //Server wants to display some text
                         case "writ":

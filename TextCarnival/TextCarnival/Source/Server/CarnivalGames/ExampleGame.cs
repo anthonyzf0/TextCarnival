@@ -47,7 +47,7 @@ namespace TextCarnival.Source.Server.CarnivalGames
             else
                 WriteLine("Well you can!");
 
-            WriteLine("You see I just did a yes / no question there? There is a command for that.");
+            WriteLine("You see I just did a yes / no question th|11ere? There is a command for that.");
             WriteLine("Write a number [one] [two] or [three], or dont, see if I care");
             
             //Gets a choice of one of a set of options

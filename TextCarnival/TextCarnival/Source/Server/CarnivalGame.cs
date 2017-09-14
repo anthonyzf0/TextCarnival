@@ -70,6 +70,16 @@ namespace TextCarnival.Source.Server
             }
             WriteLine("");
         }
+
+        //Gets a string value from the user
+        public string readLine()
+        {
+            client.sendData("read");
+            String data = client.readData();
+            return data;
+        }
+
+        //
         
         //Changes the text color
         public void changeTextColor(String name)
