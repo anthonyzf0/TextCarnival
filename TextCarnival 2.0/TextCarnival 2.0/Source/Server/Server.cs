@@ -78,6 +78,8 @@ namespace TextCarnivalV2.Source.Server
     //2nd class in file, a new instance is created to store each individual client connected
     class ServerConnection
     {
+        public static bool runningDebug = false;
+
         private CarnivalGame[] allGames;
 
         //Network data
@@ -140,14 +142,32 @@ namespace TextCarnivalV2.Source.Server
         //Runs the server
         public void runClient()
         {
+            if (!runningDebug)
+                try
+                {
+                    play();
+                }
+                catch
+                {
+                    Console.WriteLine("ERROR...ERROR...CARNIVAL GAME CAUGHT ON FIRE!");
+                    Console.WriteLine("(there was an error in the carnival game code)");
+                    Console.WriteLine("(run this in debug mode to get an error message)");
+                }
+            else
+                play();
+        }
+
+        //Actualy runs the client data
+        private void play()
+        {
             while (true)
             {
                 loadGames();
                 writeData("\nGames at this carnival:");
 
                 for (int i = 0; i < allGames.Length; i++)
-                    writeData("["+i+"] "+allGames[i].getName());
-            
+                    writeData("[" + i + "] " + allGames[i].getName());
+
                 int index = Convert.ToInt32(readData());
 
                 allGames[index].setup(send, readData);
