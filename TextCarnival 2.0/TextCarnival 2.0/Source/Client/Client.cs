@@ -24,7 +24,7 @@ namespace TextCarnivalV2.Source.Client
             String ip = "";
 
             if (useLocal)
-                ip = Server.Server.GetLocalIPAddress();
+                ip = Server.Server.GetLocalIPAddress()[0];
             else
             {
                 Console.WriteLine("What IP is the server hosted on?");

@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using TextCarnivalV2.Source.CarnivalGames;
 
 namespace TextCarnivalV2.Source.Server
@@ -32,9 +33,26 @@ namespace TextCarnivalV2.Source.Server
             clients = new List<ServerConnection>();
 
             //Gets ip
-            String ip = GetLocalIPAddress();
-            localAddr = IPAddress.Parse(ip);
-            Console.WriteLine("Starting server on local ip: " + ip);
+            List<String> ips = GetLocalIPAddress();
+
+
+            if (ips.Count == 1)
+            {
+                localAddr = IPAddress.Parse(ips[0]);
+            }
+            else
+            {
+                // Prompt user to select an ip from list
+                Console.WriteLine("Multiple ips found - select a server IP");
+                for (int i = 0; i < ips.Count; i++)
+                {
+                    Console.WriteLine("{0}. {1}", i, ips[i]);
+                }
+                Console.Write("\nWhich IP would you like to start the server on? ({0}-{1}): ", 0, ips.Count - 1);
+                localAddr = IPAddress.Parse(ips[Convert.ToInt32(Console.ReadLine())]);
+
+            }
+            Console.WriteLine("Starting server on local ip: " + localAddr.ToString());
 
             //Create server object
             server = new TcpListener(localAddr, port);
@@ -47,16 +65,18 @@ namespace TextCarnivalV2.Source.Server
         }
 
         //Gets local ip
-        public static string GetLocalIPAddress()
+        public static List<string> GetLocalIPAddress()
         {
+            List<string> ips = new List<string>();
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    return ip.ToString();
+                    ips.Add(ip.ToString());
                 }
             }
+            return ips;
             throw new Exception("Local IP Address Not Found!");
         }
 
@@ -139,7 +159,7 @@ namespace TextCarnivalV2.Source.Server
             return true;
         }
 
-        //Runs the server
+        //Runs the client
         public void runClient()
         {
             if (!runningDebug)
@@ -152,23 +172,36 @@ namespace TextCarnivalV2.Source.Server
                     Console.WriteLine("ERROR...ERROR...CARNIVAL GAME CAUGHT ON FIRE!");
                     Console.WriteLine("(there was an error in the carnival game code)");
                     Console.WriteLine("(run this in debug mode to get an error message)");
+                    runClient();
                 }
             else
                 play();
+
+
         }
 
         //Actualy runs the client data
         private void play()
         {
+
             while (true)
             {
+                int index = -1;
+
                 loadGames();
-                writeData("\nGames at this carnival:");
+                do
+                {
+                    writeData("\nGames at this carnival:");
 
-                for (int i = 0; i < allGames.Length; i++)
-                    writeData("[" + i + "] " + allGames[i].getName());
+                    for (int i = 0; i < allGames.Length; i++)
+                        writeData("[" + i + "] " + allGames[i].getName());
 
-                int index = Convert.ToInt32(readData());
+                }
+                while (!int.TryParse(readData(), out index));
+
+                Debug.Assert(index != -1, "Server is on fire - index should not be -1");
+                
+                // int index = Convert.ToInt32(readData());
 
                 allGames[index].setup(send, readData);
                 allGames[index].play();
